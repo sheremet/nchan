@@ -1,0 +1,13 @@
+version: '2'
+services:
+  nchan:
+    image: rsheremet/pubsub-bus-vm:1.0.0
+    ports:
+     - "9123:80"
+     - "9124:443"
+    depends_on:
+     - nchan-redis-server
+  nchan-redis-server:
+    image: redis:4-alpine
+    ports:
+      - "6379:6379"
