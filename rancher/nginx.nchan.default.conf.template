@@ -1,5 +1,5 @@
 upstream redis_cluster {
-  nchan_redis_server redis://redis-cluster:6379;
+  nchan_redis_server redis://:${REDIS_CLUSTER_PASSWORD}@redis-cluster:6379;
   # you don't need to specify all the nodes, they will be autodiscovered
   # however, it's recommended that you do specify at least a few master nodes.
 }
