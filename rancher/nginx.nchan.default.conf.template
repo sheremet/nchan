@@ -38,6 +38,7 @@ server {
     nchan_publisher;
     nchan_authorize_request /auth;
     nchan_channel_group nchan;
+    nchan_message_buffer_length 1;
     nchan_redis_pass redis_cluster;
     #nchan_publisher_upstream_request /upstream/pub;
   }
