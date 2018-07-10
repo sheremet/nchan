@@ -1,0 +1,15 @@
+version: '2'
+services:
+  nchan:
+    image: rsheremet/pubsub-bus-rancher:1.0.0
+    environment:
+      REDIS_CLUSTER_PASSWORD: RedisClusterPassword
+      API_ACCOUNTS_URL: api-accounts
+    stdin_open: true
+    external_links:
+    - redis-cluster/redis:redis-cluster
+    - zap-api/api-accounts:api-accounts
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: redis-cluster-master=true

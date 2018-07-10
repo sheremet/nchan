@@ -5,7 +5,7 @@ upstream redis_cluster {
 }
 
 upstream api_accounts {
-  server api-accounts:80;
+  server ${API_ACCOUNTS_URL};
 }
 
 server {

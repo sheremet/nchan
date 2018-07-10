@@ -1,0 +1,76 @@
+version: '2'
+services:
+  sentinel:
+    image: redis:4-alpine
+    environment:
+      REDIS_PASSWORD: RedisClusterPassword
+      SENTINEL_DOWN_AFTER: '1000'
+      SENTINEL_FAILOVER: '1000'
+      SENTINEL_QUORUM: '2'
+    stdin_open: true
+    entrypoint:
+    - /opt/redis/scripts/sentinel-entrypoint.sh
+    tty: true
+    volumes_from:
+    - sentinel-config
+    ports:
+    - 26379:26379/tcp
+    command:
+    - redis-server
+    - /usr/local/etc/redis/sentinel.conf
+    - --sentinel
+    labels:
+      io.rancher.sidekicks: sentinel-config
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+  redis-config:
+    image: lgatica/redis-config:1
+    environment:
+      REDIS_PASSWORD: RedisClusterPassword
+    stdin_open: true
+    entrypoint:
+    - /bin/true
+    volumes:
+    - /opt/redis/scripts
+    - /usr/local/etc/redis
+    tty: true
+    labels:
+      io.rancher.container.start_once: 'true'
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  sentinel-config:
+    image: lgatica/redis-config:2
+    environment:
+      REDIS_PASSWORD: RedisClusterPassword
+    stdin_open: true
+    entrypoint:
+    - /bin/true
+    volumes:
+    - /opt/redis/scripts
+    - /usr/local/etc/redis
+    tty: true
+    labels:
+      io.rancher.container.start_once: 'true'
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  redis:
+    image: redis:4-alpine
+    environment:
+      REDIS_PASSWORD: RedisClusterPassword
+    stdin_open: true
+    entrypoint:
+    - /opt/redis/scripts/server-entrypoint.sh
+    tty: true
+    volumes_from:
+    - redis-config
+    ports:
+    - 6379:6379/tcp
+    command:
+    - redis-server
+    - /usr/local/etc/redis/redis.conf
+    labels:
+      io.rancher.sidekicks: redis-config
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
