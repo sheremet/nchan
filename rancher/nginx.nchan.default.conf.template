@@ -10,9 +10,9 @@ upstream api_accounts {
 
 server {
   listen 80;
+  server_name nchan;
 
   location = /auth {
-    internal; #this location only accessible for internal nginx redirects
     proxy_pass http://api_accounts/api/idp/bus/auth;
     proxy_pass_request_body off;
     proxy_set_header Content-Length "";
