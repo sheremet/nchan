@@ -4,16 +4,12 @@ upstream redis_cluster {
   # however, it's recommended that you do specify at least a few master nodes.
 }
 
-upstream api_accounts {
-  server ${API_ACCOUNTS_URL};
-}
-
 server {
   listen 80;
   server_name nchan;
 
   location = /auth {
-    proxy_pass http://api_accounts/api/idp/bus/auth;
+    proxy_pass ${API_ACCOUNTS_URL}/api/idp/bus/auth;
     proxy_pass_request_body off;
     proxy_set_header Content-Length "";
     proxy_set_header X-Subscriber-Type $nchan_subscriber_type;
@@ -75,7 +71,7 @@ server {
   }
 
   location = /upstream/pub {
-    proxy_pass http://api_accounts/api/idp/bus/publish;
+    proxy_pass ${API_ACCOUNTS_URL}/api/idp/bus/publish;
     proxy_set_header X-Publisher-Type $nchan_publisher_type;
     proxy_set_header X-Prev-Message-Id $nchan_prev_message_id;
     proxy_set_header X-Channel-Id $nchan_channel_id;
@@ -89,7 +85,7 @@ server {
     proxy_set_header X-Message-Id $nchan_message_id;
     proxy_set_header X-Channel-Id $nchan_channel_id;
     proxy_set_header X-Original-URI $request_uri;
-    proxy_pass http://api_accounts/api/idp/bus/unsubscribe;
+    proxy_pass ${API_ACCOUNTS_URL}/api/idp/bus/unsubscribe;
   }
   location = /upstream/sub {
     internal;
@@ -97,6 +93,6 @@ server {
     proxy_set_header X-Message-Id $nchan_message_id;
     proxy_set_header X-Channel-Id $nchan_channel_id;
     proxy_set_header X-Original-URI $request_uri;
-    proxy_pass http://api_accounts/api/idp/bus/subscribe;
+    proxy_pass ${API_ACCOUNTS_URL}/api/idp/bus/subscribe;
   }
 }
