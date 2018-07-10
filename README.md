@@ -84,3 +84,16 @@ Available env variables:
 REDIS_CLUSTER_PASSWORD=RedisClusterPassword
 API_ACCOUNTS_URL=api-accounts
 ```
+
+## Demo client:
+
+Install globally:
+
+```bash
+npm i -g http-server
+cd html
+http-server -p 9000
+```
+
+Go to:
+http://127.0.0.1:9000 
