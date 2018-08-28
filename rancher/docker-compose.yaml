@@ -1,7 +1,7 @@
 version: '2'
 services:
   nchan:
-    image: rsheremet/pubsub-bus-rancher:1.0.0
+    image: rsheremet/pubsub-bus-rancher:1.1.0
     environment:
       REDIS_CLUSTER_PASSWORD: RedisClusterPassword
       API_ACCOUNTS_URL: api-accounts

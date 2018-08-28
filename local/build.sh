@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # api-accounts image
-NCHAN_VERSION=1.0.0
+NCHAN_VERSION=1.1.0
 name=rsheremet/pubsub-bus-local
 version=${NCHAN_VERSION}
 

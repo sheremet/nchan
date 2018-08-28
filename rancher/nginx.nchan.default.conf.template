@@ -38,7 +38,8 @@ server {
     nchan_publisher;
     nchan_authorize_request /auth;
     nchan_channel_group nchan;
-    nchan_message_buffer_length 1;
+    nchan_message_buffer_length $arg_max_msg;
+    nchan_message_timeout $arg_ttl;
     nchan_redis_pass redis_cluster;
     #nchan_publisher_upstream_request /upstream/pub;
   }
@@ -52,6 +53,7 @@ server {
     nchan_unsubscribe_request /upstream/unsub;
     nchan_message_buffer_length 1;
     nchan_subscribe_existing_channels_only on;
+    nchan_subscriber_first_message 1;
     nchan_channel_group nchan;
     nchan_redis_pass redis_cluster;
   }
@@ -63,6 +65,7 @@ server {
     nchan_unsubscribe_request /upstream/unsub;
     nchan_message_buffer_length 1;
     nchan_subscribe_existing_channels_only on;
+    nchan_subscriber_first_message 1;
     nchan_channel_group nchan;
     nchan_redis_pass redis_cluster;
   }
