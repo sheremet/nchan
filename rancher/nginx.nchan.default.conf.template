@@ -51,7 +51,7 @@ server {
     nchan_subscriber;
     nchan_subscribe_request /upstream/sub;
     nchan_unsubscribe_request /upstream/unsub;
-    nchan_message_buffer_length 1;
+    nchan_message_buffer_length ${NCHAN_SUB_USER_MESSAGE_BUFFER_LENGTH};
     nchan_subscribe_existing_channels_only on;
     nchan_subscriber_first_message 1;
     nchan_channel_group nchan;
@@ -63,7 +63,7 @@ server {
     nchan_subscriber;
     nchan_subscribe_request /upstream/sub;
     nchan_unsubscribe_request /upstream/unsub;
-    nchan_message_buffer_length 1;
+    nchan_message_buffer_length ${NCHAN_SUB_SHARED_MESSAGE_BUFFER_LENGTH};
     nchan_subscribe_existing_channels_only on;
     nchan_subscriber_first_message 1;
     nchan_channel_group nchan;
@@ -91,6 +91,7 @@ server {
     proxy_set_header X-Original-URI $request_uri;
     proxy_pass ${API_ACCOUNTS_URL}/api/idp/bus/unsubscribe;
   }
+
   location = /upstream/sub {
     internal;
     proxy_set_header X-Subscriber-Type $nchan_subscriber_type;
