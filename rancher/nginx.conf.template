@@ -26,7 +26,7 @@ http {
     sendfile        on;
     #tcp_nopush     on;
 
-    keepalive_timeout  65;
+    keepalive_timeout  ${NCHAN_KEEPALIVE_TIMEOUT};
 
     #gzip  on;
 
