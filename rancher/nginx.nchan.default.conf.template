@@ -50,7 +50,7 @@ server {
     nchan_channel_id $1;
     nchan_subscriber;
     nchan_subscribe_request /upstream/sub;
-    nchan_unsubscribe_request /upstream/unsub;
+    ${NCHAN_SUB_USER_UNSUBSCRIBE_REQUEST_COMMENT}nchan_unsubscribe_request /upstream/unsub;
     nchan_message_buffer_length ${NCHAN_SUB_USER_MESSAGE_BUFFER_LENGTH};
     nchan_subscribe_existing_channels_only on;
     nchan_subscriber_first_message 1;
@@ -62,7 +62,7 @@ server {
     nchan_channel_id $1;
     nchan_subscriber;
     nchan_subscribe_request /upstream/sub;
-    nchan_unsubscribe_request /upstream/unsub;
+    ${NCHAN_SUB_SHARED_UNSUBSCRIBE_REQUEST_COMMENT}nchan_unsubscribe_request /upstream/unsub;
     nchan_message_buffer_length ${NCHAN_SUB_SHARED_MESSAGE_BUFFER_LENGTH};
     nchan_subscribe_existing_channels_only on;
     nchan_subscriber_first_message 1;
